@@ -1,20 +1,40 @@
+import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Center, NativeBaseProvider } from 'native-base';
+import * as Location from 'expo-location';
+
+import AskLocationPermission from './screens/AskLocationPermission';
+import CoordDistanceForm from './screens/CoordDistanceForm';
 
 export default function App() {
+  const [locationGranted, setLocationGranted] = useState(false);
+
+  useEffect(() => {
+    const checkLocationPermission = async () => {
+      const { granted } = await Location.getForegroundPermissionsAsync();
+      setLocationGranted(granted);
+    };
+    checkLocationPermission();
+  }, []);
+
+  // https://docs.nativebase.io/testing
+  const inset = {
+    frame: { x: 0, y: 0, width: 0, height: 0 },
+    insets: { top: 0, left: 0, right: 0, bottom: 0 },
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <NativeBaseProvider initialWindowMetrics={inset}>
+        <Center flex={1} backgroundColor="#e0e0e0">
+          {locationGranted ? (
+            <CoordDistanceForm />
+          ) : (
+            <AskLocationPermission setLocationGranted={setLocationGranted} />
+          )}
+        </Center>
+      </NativeBaseProvider>
+      <StatusBar style='auto' />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
