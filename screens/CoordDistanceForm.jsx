@@ -33,7 +33,6 @@ export default function CoordDistanceForm() {
   const validateFormCoords = () => {
     let hasError = false;
     formFields.forEach((field) => {
-      console.log(formData[field]);
       if (formData[field] === null || isNaN(formData[field])) {
         setFormErrors((currentErrors) => ({
           ...currentErrors,
