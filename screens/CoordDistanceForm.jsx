@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import { FormControl, Stack, Button, View } from 'native-base';
 import * as Location from 'expo-location';
-import getDistance from 'geolib/es/getDistance';
+
+import { calculateDistanceBetweenCoords } from '../utils/coord.utils'
 
 import FormInput from '../components/FormInput';
 
@@ -62,18 +63,10 @@ export default function CoordDistanceForm() {
     }
   };
 
-  const calculateDistanceBetweenCoords = (formCoords, currentCoords) => {
-    const distance = getDistance(formCoords, currentCoords);
-    return distance;
-  };
-
-  const clearErrors = () => {
-    setFormErrors(initialErrorState);
-  };
-
   const handleSubmitForm = async () => {
     setCalculating(true);
-    clearErrors();
+
+    setFormErrors(initialErrorState);
 
     const formCoords = validateFormCoords();
 
