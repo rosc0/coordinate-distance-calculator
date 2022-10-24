@@ -1,6 +1,7 @@
 import distance from '@turf/distance';
 
-const createGeoJsonPoint = (longitude, latitude) => {
+// Create geoJSON point for Turf
+export const createGeoJsonPoint = (longitude, latitude) => {
   return {
     type: 'Feature',
     geometry: { 
@@ -11,6 +12,7 @@ const createGeoJsonPoint = (longitude, latitude) => {
   };
 }
 
+// Calculate distance from 2 lat/long
 export const calculateDistanceBetweenCoords = (formCoords, currentCoords) => {
   const from = createGeoJsonPoint(currentCoords.longitude, currentCoords.latitude);
   const to = createGeoJsonPoint(formCoords.longitude, formCoords.latitude);

@@ -98,12 +98,11 @@ export default function CoordDistanceForm() {
       <Stack>
         {formFields.map((field, index) => (
           <FormControl
-            key={index}
+            key={`form-input-${index}`}
             isRequired
             isInvalid={formErrors[field] !== null}
           >
-            <FormInput
-              key={`form-input-${index}`}
+            <FormInput              
               name={field}
               onChangeText={(text) => handleTextChange(text, field)}
             />
