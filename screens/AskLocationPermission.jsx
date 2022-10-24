@@ -15,7 +15,7 @@ export default function AskLocationPermission({ setLocationGranted }) {
 
   return (
     <Center flex={1}>
-      <Text fontSize={30} mb={5} color="#171717">
+      <Text fontSize={30} mb={5} color='#171717'>
         Please Enable Location
       </Text>
       <Button size='lg' colorScheme='success' onPress={handleEnableLocation}>

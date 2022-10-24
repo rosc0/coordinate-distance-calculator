@@ -1,7 +1,12 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
+
+import AskLocationPermission from '../../screens/AskLocationPermission'
 
 describe('AskLocationPermission', () => {
-  it('it works', () => {
-    expect(1).toBe(1)
+  
+  test('snapshot: renders correctly', () => {
+    const tree = renderer.create(<AskLocationPermission />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

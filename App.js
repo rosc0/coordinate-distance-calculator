@@ -24,17 +24,15 @@ export default function App() {
   };
 
   return (
-    <>
-      <NativeBaseProvider initialWindowMetrics={inset}>
-        <Center flex={1} backgroundColor="#e0e0e0">
-          {locationGranted ? (
-            <CoordDistanceForm />
-          ) : (
-            <AskLocationPermission setLocationGranted={setLocationGranted} />
-          )}
-        </Center>
-      </NativeBaseProvider>
+    <NativeBaseProvider initialWindowMetrics={inset}>
+      <Center flex={1} backgroundColor='#e0e0e0'>
+        {locationGranted ? (
+          <CoordDistanceForm />
+        ) : (
+          <AskLocationPermission setLocationGranted={setLocationGranted} />
+        )}
+      </Center>
       <StatusBar style='auto' />
-    </>
+    </NativeBaseProvider>
   );
 }

@@ -1,10 +1,10 @@
 import { FormControl, Stack, Input } from 'native-base';
 
-export default function FormInput({ name, label=name, onChangeText }) {
+export default function FormInput({ name, label = name, onChangeText }) {
   return (
     <Stack>
       <FormControl.Label _text={{ textTransform: 'capitalize', color: '#171717' }}>
-        { label }
+        {label}
       </FormControl.Label>
       <Input
         size='2xl'
@@ -15,7 +15,5 @@ export default function FormInput({ name, label=name, onChangeText }) {
         onChangeText={onChangeText}
       />
     </Stack>
-  )
+  );
 }
-
-

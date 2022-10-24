@@ -1,7 +1,12 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
+
+import FormInput from '../../components/FormInput'
 
 describe('FormInput', () => {
-  it('it works', () => {
-    expect(1).toBe(1)
+  
+  test('snapshot: renders correctly', () => {
+    const tree = renderer.create(<FormInput />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

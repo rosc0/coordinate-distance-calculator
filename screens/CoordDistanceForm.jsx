@@ -9,44 +9,42 @@ import FormInput from '../components/FormInput';
 const initialFormState = {
   latitude: null,
   longitude: null,
-}
-
+};
 const initialErrorState = {
   latitude: null,
   longitude: null,
   generalError: null,
-}
+};
+const formFields = ['latitude', 'longitude'];
 
 export default function CoordDistanceForm() {
   const [calculating, setCalculating] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
   const [formErrors, setFormErrors] = useState(initialErrorState);
 
-  const formFields = ['latitude', 'longitude'];
-
   const handleTextChange = (text, field) => {
     setFormData({
       ...formData,
       [field]: text,
     });
-  }
+  };
 
   const validateFormCoords = () => {
-    let hasError = false
+    let hasError = false;
     formFields.forEach((field) => {
       if (formData[field] === '' || isNaN(formData[field])) {
         setFormErrors((currentErrors) => ({
           ...currentErrors,
           [field]: 'Please enter a number',
         }));
-        hasError = true
+        hasError = true;
       }
     });
 
     return hasError ? false : formData;
   };
 
-  const validateCurrentCoords = async () => {
+  const getCurrentCoords = async () => {
     const { coords } = await Location.getCurrentPositionAsync();
 
     if (coords.latitude && coords.longitude) {
@@ -57,7 +55,8 @@ export default function CoordDistanceForm() {
     } else {
       setFormErrors((formErrors) => ({
         ...formErrors,
-        generalError: 'Whoops! Something went wrong getting your current location',
+        generalError:
+          'Whoops! Something went wrong getting your current location',
       }));
       return false;
     }
@@ -73,12 +72,12 @@ export default function CoordDistanceForm() {
   };
 
   const handleSubmitForm = async () => {
-    setCalculating(true)
+    setCalculating(true);
     clearErrors();
 
     const formCoords = validateFormCoords();
 
-    const currentCoords = await validateCurrentCoords();
+    const currentCoords = await getCurrentCoords();
 
     if (formCoords && currentCoords) {
       const distance = calculateDistanceBetweenCoords(
@@ -96,17 +95,20 @@ export default function CoordDistanceForm() {
           generalError: 'Whoops! Something went wrong calculating the distance',
         }));
       }
-      
     }
 
-    setCalculating(false)
+    setCalculating(false);
   };
 
   return (
-    <View isRequired width='90%'>
+    <View width='90%'>
       <Stack>
         {formFields.map((field, index) => (
-          <FormControl key={index} isRequired isInvalid={formErrors[field] !== null}>
+          <FormControl
+            key={index}
+            isRequired
+            isInvalid={formErrors[field] !== null}
+          >
             <FormInput
               key={`form-input-${index}`}
               name={field}
@@ -126,7 +128,7 @@ export default function CoordDistanceForm() {
           variant='solid'
           mt={3}
           isLoading={calculating}
-          isLoadingText="Calculating"
+          isLoadingText='Calculating'
           onPress={handleSubmitForm}
         >
           Submit
@@ -134,9 +136,7 @@ export default function CoordDistanceForm() {
 
         <View h={8}>
           <FormControl>
-            <FormControl.ErrorMessage
-              isInvalid={'generalError' in formErrors}
-            >
+            <FormControl.ErrorMessage isInvalid={formErrors.generalError !== null}>
               {formErrors.generalError}
             </FormControl.ErrorMessage>
           </FormControl>

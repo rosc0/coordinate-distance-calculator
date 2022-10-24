@@ -1,7 +1,12 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
+
+import CoordDistanceForm from '../../screens/CoordDistanceForm'
 
 describe('CoordDistanceForm', () => {
-  it('it works', () => {
-    expect(1).toBe(1)
+
+  test('snapshot: renders correctly', () => {
+    const tree = renderer.create(<CoordDistanceForm />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });
