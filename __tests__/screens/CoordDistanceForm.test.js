@@ -1,12 +1,12 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import { render, screen } from '../../utils/test.utils';
 
 import CoordDistanceForm from '../../screens/CoordDistanceForm'
 
 describe('CoordDistanceForm', () => {
 
-  test('snapshot: renders correctly', () => {
-    const tree = renderer.create(<CoordDistanceForm />).toJSON();
-    expect(tree).toMatchSnapshot();
+  test('renders correctly', () => {
+    render(<CoordDistanceForm />);
+    console.log(screen.toJSON());
+    // expect(screen.getByText('Submit')).toBeTruthy();
   });
 });

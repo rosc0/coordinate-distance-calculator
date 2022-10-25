@@ -1,12 +1,11 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import { render, screen } from '../../utils/test.utils';
 
 import FormInput from '../../components/FormInput'
 
 describe('FormInput', () => {
   
-  test('snapshot: renders correctly', () => {
-    const tree = renderer.create(<FormInput />).toJSON();
-    expect(tree).toMatchSnapshot();
+  test('renders correctly', () => {
+    render(<FormInput />);
+    console.log(screen.toJSON());
   });
 });
